@@ -1,0 +1,13 @@
+package DI.constructor.data;
+
+import DI.constructor.business.model.ExpenseType;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+
+public interface ExpenseTypeRepository extends JpaRepository<ExpenseType, Long> {
+
+    
+    @Query("SELECT COUNT(et) > 0 FROM ExpenseType et WHERE LOWER(et.expenseCategory) = LOWER(:expenseCategory)")
+    boolean existsByExpenseCategoryIgnoreCase(String expenseCategory);
+}
